@@ -262,11 +262,11 @@ judges_text |>
   str_squish() # Remove extra white space
 ```
 
-# Applied examples and strategies
+# Examples and strategies
 
 Now that we've seen some basic examples, let's use what we've learned so far to identify and evaluate some strategies for extracting the case number, the legal procedure, and the names of the judges from our `3` lines of example text. Then, we'll use regular expressions to prepare some text for quantitative text analysis. 
 
-## Extracting the case number
+## Example 1: Extracting the case number
 
 To extract the case number we need to match `C‑370/12`, but we want to write a general expression that will catch all case numbers, not just the one in this case. What we did before works for this case number, but it won't work for all case numbers.
 
@@ -288,7 +288,7 @@ str_extract(case_numbers, "(C|T)-[0-9]+/[0-9]+")
 str_extract(case_numbers, "[CT]-[0-9]+/[0-9]+")
 ```
 
-## Extracting the legal procedure
+## Example 2: Extracting the legal procedure
 
 There are two general strategies for extracting information from text:
 
@@ -311,7 +311,7 @@ procedure_text |>
   str_to_sentence() # Fix capitalization 
 ```
 
-## Extracting the names of the judges
+## Example 3: Extracting the names of the judges
 
 Now, let's extract the names of the judges. This is a bit harder. The best approach here is reduction. We  have a line of text that includes the names of the judges and only a few other elements, like the phrases `(Rapporteur)`, `Vice-President,`,  `composed of`, and `, Judges,`. We can write regular expressions to remove those phrases, leaving behind just the names. We're just interested in the last names of the judges, so we'll also want to remove their initials. Once we've reduced our string to just the names of the judges, we can use the commas to split the names apart, creating an a clean vector of judge names. 
 
@@ -345,7 +345,7 @@ Here are a few tips to keep in mind based on what we've learned in this example.
 
 **Tip #3:** When you're removing text from the middle of a string, it's often a good idea to replace what you're removing with a space. This makes sure that removing the text doesn't cause two words to get squished together. You can always remove any extra spaces using `str_squish()` at the end. 
 
-## Using regular expressions to clean text
+## Example 4: Using regular expressions to prepare text for analysis
 
 We can use `stringr` and regular expressions to prepare text for quantitative text analysis. We'll use a paragraph from the judgment for case `C‑370/12` as an example. You could use the same code to clean an entire text corpus. You would just pass in a column from a `tibble` containing your text instead of the `text` object in the example.
 
