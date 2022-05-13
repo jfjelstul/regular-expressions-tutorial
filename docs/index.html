@@ -195,12 +195,12 @@ pre code {
 <li><a href="#replacing-text">Replacing text</a></li>
 <li><a href="#removing-text">Removing text</a></li>
 </ul></li>
-<li><a href="#applied-examples-and-strategies">Applied examples and strategies</a>
+<li><a href="#examples-and-strategies">Examples and strategies</a>
 <ul>
-<li><a href="#extracting-the-case-number">Extracting the case number</a></li>
-<li><a href="#extracting-the-legal-procedure">Extracting the legal procedure</a></li>
-<li><a href="#extracting-the-names-of-the-judges">Extracting the names of the judges</a></li>
-<li><a href="#using-regular-expressions-to-clean-text">Using regular expressions to clean text</a></li>
+<li><a href="#example-1-extracting-the-case-number">Example 1: Extracting the case number</a></li>
+<li><a href="#example-2-extracting-the-legal-procedure">Example 2: Extracting the legal procedure</a></li>
+<li><a href="#example-3-extracting-the-names-of-the-judges">Example 3: Extracting the names of the judges</a></li>
+<li><a href="#example-4-using-regular-expressions-to-prepare-text-for-analysis">Example 4: Using regular expressions to prepare text for analysis</a></li>
 </ul></li>
 <li><a href="#final-thoughts">Final thoughts</a></li>
 </ul>
@@ -407,11 +407,11 @@ judges_text |&gt;
 <pre><code>## [1] &quot;Lenaerts&quot;</code></pre>
 </div>
 </div>
-<div id="applied-examples-and-strategies" class="section level1">
-<h1>Applied examples and strategies</h1>
+<div id="examples-and-strategies" class="section level1">
+<h1>Examples and strategies</h1>
 <p>Now that we’ve seen some basic examples, let’s use what we’ve learned so far to identify and evaluate some strategies for extracting the case number, the legal procedure, and the names of the judges from our <code>3</code> lines of example text. Then, we’ll use regular expressions to prepare some text for quantitative text analysis.</p>
-<div id="extracting-the-case-number" class="section level2">
-<h2>Extracting the case number</h2>
+<div id="example-1-extracting-the-case-number" class="section level2">
+<h2>Example 1: Extracting the case number</h2>
 <p>To extract the case number we need to match <code>C‑370/12</code>, but we want to write a general expression that will catch all case numbers, not just the one in this case. What we did before works for this case number, but it won’t work for all case numbers.</p>
 <pre class="r"><code># Extract the case number
 str_extract(case_text, &quot;C-[0-9]+/[0-9]+&quot;)</code></pre>
@@ -427,8 +427,8 @@ str_extract(case_numbers, &quot;(C|T)-[0-9]+/[0-9]+&quot;)</code></pre>
 str_extract(case_numbers, &quot;[CT]-[0-9]+/[0-9]+&quot;)</code></pre>
 <pre><code>## [1] &quot;C-101/22&quot; &quot;T-105/22&quot;</code></pre>
 </div>
-<div id="extracting-the-legal-procedure" class="section level2">
-<h2>Extracting the legal procedure</h2>
+<div id="example-2-extracting-the-legal-procedure" class="section level2">
+<h2>Example 2: Extracting the legal procedure</h2>
 <p>There are two general strategies for extracting information from text:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Extraction:</strong> Match the text we’re interested in and extract it from the surrounding text. This is a good strategy when the text we’re interested in has a clear, distinctive pattern that we can match directly, like a case number.</p></li>
@@ -445,8 +445,8 @@ procedure_text |&gt;
   str_to_sentence() # Fix capitalization </code></pre>
 <pre><code>## [1] &quot;Reference for a preliminary ruling&quot;</code></pre>
 </div>
-<div id="extracting-the-names-of-the-judges" class="section level2">
-<h2>Extracting the names of the judges</h2>
+<div id="example-3-extracting-the-names-of-the-judges" class="section level2">
+<h2>Example 3: Extracting the names of the judges</h2>
 <p>Now, let’s extract the names of the judges. This is a bit harder. The best approach here is reduction. We have a line of text that includes the names of the judges and only a few other elements, like the phrases <code>(Rapporteur)</code>, <code>Vice-President,</code>, <code>composed of</code>, and <code>, Judges,</code>. We can write regular expressions to remove those phrases, leaving behind just the names. We’re just interested in the last names of the judges, so we’ll also want to remove their initials. Once we’ve reduced our string to just the names of the judges, we can use the commas to split the names apart, creating an a clean vector of judge names.</p>
 <pre class="r"><code># Make a list of judge names
 judges &lt;- judges_text |&gt;
@@ -476,8 +476,8 @@ judges</code></pre>
 <p><strong>Tip #2:</strong> When you use several regular expressions in a row to clean a string, it’s good practice to run your code one step at a time to make sure each step is doing what you expect. Each step changes something about the string, and whatever you run next has to build on that. You need to make sure that subsequent regular expressions are written to take into account what the string looks like <em>when you apply the regular expression</em>, not what it looked like at the beginning.</p>
 <p><strong>Tip #3:</strong> When you’re removing text from the middle of a string, it’s often a good idea to replace what you’re removing with a space. This makes sure that removing the text doesn’t cause two words to get squished together. You can always remove any extra spaces using <code>str_squish()</code> at the end.</p>
 </div>
-<div id="using-regular-expressions-to-clean-text" class="section level2">
-<h2>Using regular expressions to clean text</h2>
+<div id="example-4-using-regular-expressions-to-prepare-text-for-analysis" class="section level2">
+<h2>Example 4: Using regular expressions to prepare text for analysis</h2>
 <p>We can use <code>stringr</code> and regular expressions to prepare text for quantitative text analysis. We’ll use a paragraph from the judgment for case <code>C‑370/12</code> as an example. You could use the same code to clean an entire text corpus. You would just pass in a column from a <code>tibble</code> containing your text instead of the <code>text</code> object in the example.</p>
 <p>In this example, we’ll convert the text to lower case, remove punctuation, remove numbers, remove a custom list of stop words (short words that have grammatical meaning, but not substantive meaning), and remove extra white space.</p>
 <p>To remove the stop words, we’ll start with a string vector that contains the words. We’ll use <code>str_c()</code> with <code>collapse = "|</code> to collapse this vector of words into a single string and to add the <code>|</code> operator between each word. Then, we’ll use <code>str_c</code> to wrap this regular expression in <code>()</code> and add <code>\\b</code> at the start and end. This produces the regular expression like <code>\\b(the|a|an|and)\\b</code>, which matches all of the stop words in the paragraph. This is a nice example of using code to generate more complicated code. Adding the <code>\\b</code> at each end makes sure we don’t match these stop words when they occur in the middle of a word. We only want to match those sequences of letters when they form a stand-alone word.</p>
