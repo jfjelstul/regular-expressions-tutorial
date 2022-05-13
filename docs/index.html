@@ -265,11 +265,11 @@ judges_text &lt;- &quot;composed of V. Skouris, President, K. Lenaerts (Rapporte
 ^ # Match the start of a string
 $ # Match the end of a string
 - # Create a range in a character class
-| # The alternation operator
+| # The &quot;or&quot; operator
 [] # Create a character class
 () # Create a group
 {} # Create a quantifier
-\ # Escapes a special character</code></pre>
+\ # Escape a special character</code></pre>
 <p>In this tutorial, we’ll walk through how to use these meta characters to construct regular expressions that we can use to detect, extract, replace, and remove text.</p>
 <p>If you want to match a meta character, you need to indicate in your regular expression that you want to use the character literally. We do this by adding <code>\\</code> in front of the character. This is called “escaping” the character. For example, to match a literal <code>+</code> in a string, we would use <code>\\+</code>. One <code>\</code> is required by the regular expression syntax and another <code>\</code> is required by <code>R</code>. To match a literal <code>\</code>, we’d have to use <code>\\\\</code>!</p>
 </div>
@@ -420,7 +420,7 @@ str_extract(case_text, &quot;C-[0-9]+/[0-9]+&quot;)</code></pre>
 <pre class="r"><code># Some example case numbers
 case_numbers &lt;- c(&quot;C-101/22&quot;, &quot;T-105/22&quot;)
 
-# We can use the alternation operator
+# We can use the &quot;or&quot; operator
 str_extract(case_numbers, &quot;(C|T)-[0-9]+/[0-9]+&quot;)</code></pre>
 <pre><code>## [1] &quot;C-101/22&quot; &quot;T-105/22&quot;</code></pre>
 <pre class="r"><code># Or we can use a character class
