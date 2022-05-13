@@ -177,37 +177,37 @@ pre code {
 
 <div id="TOC">
 <ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#functions-for-working-with-text">Functions for working with text</a></li>
-<li><a href="#regular-expression-syntax">Regular expression syntax</a>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#functions-for-working-with-text"><span class="toc-section-number">2</span> Functions for working with text</a></li>
+<li><a href="#regular-expression-syntax"><span class="toc-section-number">3</span> Regular expression syntax</a>
 <ul>
-<li><a href="#meta-characters">Meta characters</a></li>
-<li><a href="#special-characters">Special characters</a></li>
-<li><a href="#alternates">Alternates</a></li>
-<li><a href="#quantifiers">Quantifiers</a></li>
-<li><a href="#anchors">Anchors</a></li>
-<li><a href="#groups">Groups</a></li>
+<li><a href="#meta-characters"><span class="toc-section-number">3.1</span> Meta characters</a></li>
+<li><a href="#special-characters"><span class="toc-section-number">3.2</span> Special characters</a></li>
+<li><a href="#alternates"><span class="toc-section-number">3.3</span> Alternates</a></li>
+<li><a href="#quantifiers"><span class="toc-section-number">3.4</span> Quantifiers</a></li>
+<li><a href="#anchors"><span class="toc-section-number">3.5</span> Anchors</a></li>
+<li><a href="#groups"><span class="toc-section-number">3.6</span> Groups</a></li>
 </ul></li>
-<li><a href="#using-the-stringr-package">Using the stringr package</a>
+<li><a href="#using-the-stringr-package"><span class="toc-section-number">4</span> Using the stringr package</a>
 <ul>
-<li><a href="#detecting-text">Detecting text</a></li>
-<li><a href="#extracting-text">Extracting text</a></li>
-<li><a href="#replacing-text">Replacing text</a></li>
-<li><a href="#removing-text">Removing text</a></li>
+<li><a href="#detecting-text"><span class="toc-section-number">4.1</span> Detecting text</a></li>
+<li><a href="#extracting-text"><span class="toc-section-number">4.2</span> Extracting text</a></li>
+<li><a href="#replacing-text"><span class="toc-section-number">4.3</span> Replacing text</a></li>
+<li><a href="#removing-text"><span class="toc-section-number">4.4</span> Removing text</a></li>
 </ul></li>
-<li><a href="#examples-and-strategies">Examples and strategies</a>
+<li><a href="#examples-and-strategies"><span class="toc-section-number">5</span> Examples and strategies</a>
 <ul>
-<li><a href="#example-1-extracting-the-case-number">Example 1: Extracting the case number</a></li>
-<li><a href="#example-2-extracting-the-legal-procedure">Example 2: Extracting the legal procedure</a></li>
-<li><a href="#example-3-extracting-the-names-of-the-judges">Example 3: Extracting the names of the judges</a></li>
-<li><a href="#example-4-using-regular-expressions-to-prepare-text-for-analysis">Example 4: Using regular expressions to prepare text for analysis</a></li>
+<li><a href="#example-1-extracting-the-case-number"><span class="toc-section-number">5.1</span> Example 1: Extracting the case number</a></li>
+<li><a href="#example-2-extracting-the-legal-procedure"><span class="toc-section-number">5.2</span> Example 2: Extracting the legal procedure</a></li>
+<li><a href="#example-3-extracting-the-names-of-the-judges"><span class="toc-section-number">5.3</span> Example 3: Extracting the names of the judges</a></li>
+<li><a href="#example-4-using-regular-expressions-to-prepare-text-for-analysis"><span class="toc-section-number">5.4</span> Example 4: Using regular expressions to prepare text for analysis</a></li>
 </ul></li>
-<li><a href="#final-thoughts">Final thoughts</a></li>
+<li><a href="#final-thoughts"><span class="toc-section-number">6</span> Final thoughts</a></li>
 </ul>
 </div>
 
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
+<div id="introduction" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>Regular expressions are a syntax for matching patterns in text. They allow us to detect, extract, replace, or remove text that satisfies a certain pattern, rather than just an exact string. Regular expressions are one of the most powerful tools you can learn for manipulating data and they’re essential to learn if you’re interested in quantitative text analysis. You can use regular expressions with any kind of text data, from books, to speeches, to legal documents, to tweets and social media posts. They’re useful for cleaning plain text, for extracting information from plain text to create string variables, and for detecting information in plain text to create dummy variables. In this tutorial, I’ll teach you everything you need to know about them using real-world examples.</p>
 <p>The <code>tidyverse</code> includes a package called <code>stringr</code> for working with text data. All of the functions in <code>stringr</code> can match text exactly or match patterns in text using regular expressions. We’ll use this package to implement regular expressions in <code>R</code>. You’ll need to install and load <code>tidyverse</code>, which includes <code>stringr</code>, and <code>lubridate</code>.</p>
 <pre class="r"><code>library(tidyverse)
@@ -231,8 +231,8 @@ judges_text &lt;- &quot;composed of V. Skouris, President, K. Lenaerts (Rapporte
 <p>If we had the text of many judgments, say <code>10000+</code> judgments, we could use this regular expression to extract the legal basis of each case <em>as long as the legal basis follows the same pattern in all of the judgments.</em> Regular expressions make cleaning and manipulating text data much faster than doing it by hand.</p>
 <p>Regular expressions are most useful when the information you’re interested in matching (to detect, extract, replace, or remove) follows a predictable pattern. But in the real world, there are often exceptions and irregularities (including typos). We can writing increasingly complex regular expressions to match increasingly messy text. Regular expressions can get pretty complex and they can be a bit tedious to write, so they might not be worth it if you’re only working with a small amount of text. But they payoffs can be huge when we’re working with a lot of text — like thousands or tens of thousands of documents — and it becomes too time-consuming to find what you’re looking for by hand or too expensive to pay someone to do it for you.</p>
 </div>
-<div id="functions-for-working-with-text" class="section level1">
-<h1>Functions for working with text</h1>
+<div id="functions-for-working-with-text" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> Functions for working with text</h1>
 <p>The <code>stringr</code> package includes a variety of really useful functions for working with text. We can organize these functions into categories based on what they do. There are functions for detecting, extracting, replacing, and removing text. All of the functions start with the prefix <code>str_</code>.</p>
 <ul>
 <li>Detecting text: <code>str_detect()</code>, <code>str_count()</code></li>
@@ -243,8 +243,8 @@ judges_text &lt;- &quot;composed of V. Skouris, President, K. Lenaerts (Rapporte
 <p>All of these functions are vectorized, which means you can use them on a single string or an a vector of strings, like a column of a <code>tibble</code>. They’ll all return the exact same number of elements as you put in.</p>
 <p><code>stringr</code> includes a variety of other useful functions. <code>str_c()</code> allows you to combine string vectors, element by element or collapse a string vector into a single string. <code>str_trim()</code> removes white space (spaces, tabs, line breaks) at the start and end of a string. <code>str_squish()</code> is similar, but it also removes extra space inside a string. You can look at the <a href="https://stringr.tidyverse.org">package documentation</a> to see the full list of functions.</p>
 </div>
-<div id="regular-expression-syntax" class="section level1">
-<h1>Regular expression syntax</h1>
+<div id="regular-expression-syntax" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> Regular expression syntax</h1>
 <p>Regular expression syntax takes some getting used to, and you’ll probably need to refer back to a cheat sheet at first, but it’s worth taking the time to learn all of the syntax. In this section, we’ll introduce the syntax, and then in the next section, we’ll do some examples in <code>R</code>.</p>
 <p>There are <code>6</code> aspects of regular expression syntax that we’ll need to learn:</p>
 <ol style="list-style-type: decimal">
@@ -255,8 +255,8 @@ judges_text &lt;- &quot;composed of V. Skouris, President, K. Lenaerts (Rapporte
 <li>Anchors</li>
 <li>Groups</li>
 </ol>
-<div id="meta-characters" class="section level2">
-<h2>Meta characters</h2>
+<div id="meta-characters" class="section level2" number="3.1">
+<h2 number="3.1"><span class="header-section-number">3.1</span> Meta characters</h2>
 <p>Regular expressions use various punctuation marks to match patterns in strings. The characters that have special meanings in regular expressions are called meta characters.</p>
 <pre class="r"><code>. # Match any single character (except a line break)
 ? # Match the preceding item 0 or 1 times
@@ -273,15 +273,15 @@ $ # Match the end of a string
 <p>In this tutorial, we’ll walk through how to use these meta characters to construct regular expressions that we can use to detect, extract, replace, and remove text.</p>
 <p>If you want to match a meta character, you need to indicate in your regular expression that you want to use the character literally. We do this by adding <code>\\</code> in front of the character. This is called “escaping” the character. For example, to match a literal <code>+</code> in a string, we would use <code>\\+</code>. One <code>\</code> is required by the regular expression syntax and another <code>\</code> is required by <code>R</code>. To match a literal <code>\</code>, we’d have to use <code>\\\\</code>!</p>
 </div>
-<div id="special-characters" class="section level2">
-<h2>Special characters</h2>
+<div id="special-characters" class="section level2" number="3.2">
+<h2 number="3.2"><span class="header-section-number">3.2</span> Special characters</h2>
 <p>We also see <code>\</code> when we need to match special characters. We can match a tab using <code>\t</code>, a carriage return (CR) using <code>\r</code>, and a line feed using <code>\n</code> (LF). On typewriters, a carriage return moves the cursor back to the start of the line and a line feed jumps the cursor down to the next line. Starting a new line took a carriage return and a line feed.</p>
 <p>On computers, different operating systems indicate a new line in different ways: <code>\r</code> is the character for a new line in Mac OS 9 and earlier, <code>\n</code> is a new line in Unix and Mac OS X and MacOS, and <code>\r\n</code> is a new line in Windows.</p>
 <p>There are a few other useful special characters. <code>\w</code> matches word characters, <code>\W</code> matches non-word characters, <code>\d</code> matches digits, <code>\D</code> matches non-digits, <code>\s</code> matches white space, <code>\S</code> matches non-white space, and <code>\b</code> matches word boundaries. We’ll look at an example that uses <code>\b</code> later on.</p>
 <p>When we use regular expressions in <code>R</code>, we need to use <code>\\</code> instead of <code>\</code> to escape special characters, just like when we escape meta characters, so <code>\n</code> becomes <code>\\n</code> and so on.</p>
 </div>
-<div id="alternates" class="section level2">
-<h2>Alternates</h2>
+<div id="alternates" class="section level2" number="3.3">
+<h2 number="3.3"><span class="header-section-number">3.3</span> Alternates</h2>
 <p>We can match multiple characters by creating a character class. A character class is a set of characters, and it will match any character in the set. You can include individual characters or ranges of characters. To make a character class, you use <code>[]</code>. For example, the class <code>[abc]</code> will match <code>a</code>, <code>b</code>, or <code>c</code> and the class <code>[123]</code> will match <code>1</code>, <code>2</code>, and <code>3</code>. Note that character classes are case sensitive, so <code>[abc]</code> will match <code>a</code> but not <code>A</code>. It doesn’t matter what order you put the characters in. <code>[abc]</code> is the same as <code>[cba]</code> and <code>[bca]</code>.</p>
 <p>You have to match characters with diacritical marks explicitly. <code>[abc]</code> will not match <code>á</code> but <code>[ábc]</code> will.</p>
 <p>For numbers and letters, you can specify a range using <code>-</code>. For example, <code>[a-z]</code> will match all lower case letters and <code>[A-Z]</code> will match all upper case letters. <code>[0-9]</code> will match all numbers. If you want to match a literal <code>-</code>, you have to escape it inside the character class, as in <code>[a-z\-]</code>. Notice that this time, you only need to add one <code>\</code>.</p>
@@ -303,30 +303,30 @@ $ # Match the end of a string
 <p>In addition to character classes, we can use <code>.</code> to match any character (except a line break). We can think of <code>.</code> as a wildcard.</p>
 <p>We can use <code>|</code> to match one pattern or another. This is called the “or” operator. It’s like the logical <code>|</code> operator in <code>R</code>. For example, <code>Article 258|Article 267</code> will match <code>Article 258</code>, which is the legal basis for compliance cases, or <code>Article 268</code>, which is the legal basis for preliminary rulings. This is useful when you’re looking to match a limited number of set phrases or when the information you want to find could have a couple of formats, like dates or case numbers. You can write a regular expression for each format and separate them by <code>|</code>.</p>
 </div>
-<div id="quantifiers" class="section level2">
-<h2>Quantifiers</h2>
+<div id="quantifiers" class="section level2" number="3.4">
+<h2 number="3.4"><span class="header-section-number">3.4</span> Quantifiers</h2>
 <p>Sometimes we need to match a character or character class multiple times in a row. We can use quantifiers to indicate how many times we want to match something. For example, to match a date in a <code>YYYY-MM-DD</code> format, we’d want to match four numbers, followed by a dash, followed by two more numbers, followed by another dash, followed by two more numbers. We could do that using the regular expression <code>[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]</code>, but that’s long and repetitive. Quantifiers let us do something like <code>[0-9]+-[0-9]+-[0-9]+</code> instead.</p>
 <p>There are <code>6</code> ways to quantify the number of times you want to match something. <code>?</code> will match the preceding item <code>0</code> or <code>1</code> times. It’s a way of saying “the preceding item is optional.” <code>+</code> will match the preceding item <code>1</code> or more times. It’s a way of saying “the preceding item needs to be there, but there could occur a few times.” <code>*</code> will match the preceding item <code>0</code> or more times. It’s a way of saying “the preceding item could be there, it could occur a few times, but might also not be there.”</p>
 <p>We can also be more specific and say exactly how many times we want to match something using <code>{}</code>. We can use a single number, like <code>{n}</code> (exactly <code>n</code> times), to indicate an exact number of times, or we could specify an open or closed range, like <code>{n,}</code> (<code>n</code> or more times) or <code>{n,m}</code> (between <code>n</code> and <code>m</code> times).</p>
 <p>If you want to match a date in the format <code>YYYY-MM-DD</code>, but you want to be very careful you don’t accidentally match a sequence of numbers are dashes that isn’t a date, you could use the regular expression <code>[0-9]{4}-[0-9]{2}-[0-9]{2}</code>. This is more reliable and robust than the <code>[0-9]+-[0-9]+-[0-9]+</code> we saw above. If you want to match a date in the format <code>DD Month YYYY</code>, where the day could be a one-digit or two-digit number, we could use <code>[0-9]{1,2} [A-Z][a-z]+, [0-9]{4}</code>. This is much more robust than, say, <code>[0-9]+ [A-Za-z,]+ [0-9]+</code> because it’s better at avoiding false positives (accidentally identifying a match that really isn’t a match). In general, using more precise quantifiers helps to avoid false positives. But being too specific can also cause false negatives (accidentally not identifying a match). For example, if we used <code>[0-9]{2} [A-Z][a-z]+, [0-9]{4}</code>, we would miss a date like <code>1 January, 2022</code>.</p>
 <p>A particularly useful regular expression we can writing using quantifiers is <code>.*?</code>. This is a special pattern that means “any character any number of times until you get to” whatever comes after. For example, to match any text between the sub-string <code>X</code> and the sub-string <code>Y</code>, we can use <code>X.*?Y</code>. The <code>?</code> tells the <code>*</code> to “not be greedy” and stop once it sees <code>Y</code>. This is useful for matching text that we can only identify based on what surrounds it, rather than on some distinguishing feature of the text itself.</p>
 </div>
-<div id="anchors" class="section level2">
-<h2>Anchors</h2>
+<div id="anchors" class="section level2" number="3.5">
+<h2 number="3.5"><span class="header-section-number">3.5</span> Anchors</h2>
 <p>Sometimes, a string will have multiple matches, and we only want one of them. If the match we’re interested in is at the start or end of a string, we can use anchors to get the right one. Outside of a character class, <code>^</code> means the start of a string and <code>$</code> means the end of the string. For example, let’s say we have a date in the format <code>YYYY-MM-DD</code>, like <code>2022-01-01</code>, and we want to extract the day, which is at the end. We could use the regular expression <code>[0-9]+$</code>, which means “find a sequence of numbers at the end of the string.” We could extract the year using <code>^[0-9]+</code>, which means “find a sequence of numbers at the start of the string.”</p>
 </div>
-<div id="groups" class="section level2">
-<h2>Groups</h2>
+<div id="groups" class="section level2" number="3.6">
+<h2 number="3.6"><span class="header-section-number">3.6</span> Groups</h2>
 <p>We can create groups inside a regular expression using <code>()</code>. Creating groups can be useful for two main reasons.</p>
 <p>First, we can use groups to use <code>|</code> within a larger regular expression. For example, we could identify article numbers using <code>(Art\\.|Article) [0-9]+</code>. This will match <code>Art. 267</code> and <code>Article 267</code>. This is useful when your texts contain predictable formatting inconsistencies.</p>
 <p>Second, when you define one or more groups, you can refer back to them in the replacement string using <code>\\#</code>, where <code>#</code> is the number of the group. Let’s say a minority of our texts have article numbers in the format <code>Article 267</code> and we want to convert these to the format <code>Art. 267</code> to match the majority of the texts. We could use the expression <code>Article ([0-9]+)</code> to match the text and then replace it using the string <code>Art. \\1</code>. The <code>\\1</code> refers to whatever is inside the parentheses. This lets us refer back to text that we’ve matched without actually knowing exactly what that text is.</p>
 </div>
 </div>
-<div id="using-the-stringr-package" class="section level1">
-<h1>Using the stringr package</h1>
+<div id="using-the-stringr-package" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> Using the stringr package</h1>
 <p>We’ll implement regular expressions in <code>R</code> using the <code>stringr</code> package. <code>stringr</code> includes functions for detecting, extracting, replacing, and removing text using regular expressions.</p>
-<div id="detecting-text" class="section level2">
-<h2>Detecting text</h2>
+<div id="detecting-text" class="section level2" number="4.1">
+<h2 number="4.1"><span class="header-section-number">4.1</span> Detecting text</h2>
 <p><code>str_detect()</code> checks for matches in a string vector. This function returns a logical vector that indicates whether each element in the input vector contains a match. We can use <code>as.numeric()</code> to convert this logical vector to a dummy variable. This is really useful for creating dummy variables that indicate whether texts contain certain information. <code>str_count()</code> is similar but returns the number of matches.</p>
 <pre class="r"><code># Does the text mention a treaty article?
 procedure_text |&gt;
@@ -342,8 +342,8 @@ procedure_text |&gt;
   str_count(&quot;[0-9]{1,2} [A-Z][a-z]+ [0-9]{4}&quot;) # Match dates</code></pre>
 <pre><code>## [1] 2</code></pre>
 </div>
-<div id="extracting-text" class="section level2">
-<h2>Extracting text</h2>
+<div id="extracting-text" class="section level2" number="4.2">
+<h2 number="4.2"><span class="header-section-number">4.2</span> Extracting text</h2>
 <p><code>str_extract()</code> extracts the first match from a string vector. It returns a vector with the first match from each element of the string vector you give it. <code>str_extract_all()</code> extracts all matches. It returns a list. Each element of the list is a vector that contains all of the matches from each element of the string vector you give it. If you give it a single string, you’ll get a list with one element, and that element will be a vector with all of the matches. You can flatten this list into a vector using <code>flatten()</code> from the <code>purrr</code> package, which includes functions for working with lists. You can assign the output of <code>str_extract_all()</code> to a column of a <code>tibble</code>, which will be a list, instead of a string vector.</p>
 <p>As we’ll see in the examples, sometimes it’s useful to extract a larger string of text that contains what we’re interested in, in order to isolate it, and then extract what we’re interested in from that fragment.</p>
 <pre class="r"><code># Extract the case number
@@ -378,8 +378,8 @@ procedure_text |&gt;
   str_extract(&quot;^.*?Article [0-9]+&quot;)</code></pre>
 <pre><code>## [1] &quot;REFERENCE for a preliminary ruling under Article 267&quot;</code></pre>
 </div>
-<div id="replacing-text" class="section level2">
-<h2>Replacing text</h2>
+<div id="replacing-text" class="section level2" number="4.3">
+<h2 number="4.3"><span class="header-section-number">4.3</span> Replacing text</h2>
 <p><code>str_replace()</code> replaces the first match in each element of a string vector with some other text that you provide. <code>str_replace_all()</code> replaces all matches. If your regular expression includes a group, you can refer to the group in the replacement string using <code>\\1</code>. You can refer to as many groups as you include in your regular expression.</p>
 <pre class="r"><code># Change the format of dates from DD Month YYYY to Month DD YYYY
 procedure_text |&gt;
@@ -390,8 +390,8 @@ case_text |&gt;
   str_replace(&quot;([0-9]+),&quot;, &quot;20\\1,&quot;)</code></pre>
 <pre><code>## [1] &quot;In Case C-370/2012,&quot;</code></pre>
 </div>
-<div id="removing-text" class="section level2">
-<h2>Removing text</h2>
+<div id="removing-text" class="section level2" number="4.4">
+<h2 number="4.4"><span class="header-section-number">4.4</span> Removing text</h2>
 <p><code>str_remove()</code> removes the first match in a string. <code>str_remove_all()</code> removes all matches. Removing text is often useful before extracting text to make it easier to match what we’re interested in. It’s also useful after extracting text to remove anything in the matching text that we don’t want.</p>
 <pre class="r"><code># Extract the year of the case
 case_text |&gt;
@@ -407,11 +407,11 @@ judges_text |&gt;
 <pre><code>## [1] &quot;Lenaerts&quot;</code></pre>
 </div>
 </div>
-<div id="examples-and-strategies" class="section level1">
-<h1>Examples and strategies</h1>
+<div id="examples-and-strategies" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> Examples and strategies</h1>
 <p>Now that we’ve seen some basic examples, let’s use what we’ve learned so far to identify and evaluate some strategies for extracting the case number, the legal procedure, and the names of the judges from our <code>3</code> lines of example text. Then, we’ll use regular expressions to prepare some text for quantitative text analysis.</p>
-<div id="example-1-extracting-the-case-number" class="section level2">
-<h2>Example 1: Extracting the case number</h2>
+<div id="example-1-extracting-the-case-number" class="section level2" number="5.1">
+<h2 number="5.1"><span class="header-section-number">5.1</span> Example 1: Extracting the case number</h2>
 <p>To extract the case number we need to match <code>C‑370/12</code>, but we want to write a general expression that will catch all case numbers, not just the one in this case. What we did before works for this case number, but it won’t work for all case numbers.</p>
 <pre class="r"><code># Extract the case number
 str_extract(case_text, &quot;C-[0-9]+/[0-9]+&quot;)</code></pre>
@@ -427,8 +427,8 @@ str_extract(case_numbers, &quot;(C|T)-[0-9]+/[0-9]+&quot;)</code></pre>
 str_extract(case_numbers, &quot;[CT]-[0-9]+/[0-9]+&quot;)</code></pre>
 <pre><code>## [1] &quot;C-101/22&quot; &quot;T-105/22&quot;</code></pre>
 </div>
-<div id="example-2-extracting-the-legal-procedure" class="section level2">
-<h2>Example 2: Extracting the legal procedure</h2>
+<div id="example-2-extracting-the-legal-procedure" class="section level2" number="5.2">
+<h2 number="5.2"><span class="header-section-number">5.2</span> Example 2: Extracting the legal procedure</h2>
 <p>There are two general strategies for extracting information from text:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Extraction:</strong> Match the text we’re interested in and extract it from the surrounding text. This is a good strategy when the text we’re interested in has a clear, distinctive pattern that we can match directly, like a case number.</p></li>
@@ -445,8 +445,8 @@ procedure_text |&gt;
   str_to_sentence() # Fix capitalization </code></pre>
 <pre><code>## [1] &quot;Reference for a preliminary ruling&quot;</code></pre>
 </div>
-<div id="example-3-extracting-the-names-of-the-judges" class="section level2">
-<h2>Example 3: Extracting the names of the judges</h2>
+<div id="example-3-extracting-the-names-of-the-judges" class="section level2" number="5.3">
+<h2 number="5.3"><span class="header-section-number">5.3</span> Example 3: Extracting the names of the judges</h2>
 <p>Now, let’s extract the names of the judges. This is a bit harder. The best approach here is reduction. We have a line of text that includes the names of the judges and only a few other elements, like the phrases <code>(Rapporteur)</code>, <code>Vice-President,</code>, <code>composed of</code>, and <code>, Judges,</code>. We can write regular expressions to remove those phrases, leaving behind just the names. We’re just interested in the last names of the judges, so we’ll also want to remove their initials. Once we’ve reduced our string to just the names of the judges, we can use the commas to split the names apart, creating an a clean vector of judge names.</p>
 <pre class="r"><code># Make a list of judge names
 judges &lt;- judges_text |&gt;
@@ -476,8 +476,8 @@ judges</code></pre>
 <p><strong>Tip #2:</strong> When you use several regular expressions in a row to clean a string, it’s good practice to run your code one step at a time to make sure each step is doing what you expect. Each step changes something about the string, and whatever you run next has to build on that. You need to make sure that subsequent regular expressions are written to take into account what the string looks like <em>when you apply the regular expression</em>, not what it looked like at the beginning.</p>
 <p><strong>Tip #3:</strong> When you’re removing text from the middle of a string, it’s often a good idea to replace what you’re removing with a space. This makes sure that removing the text doesn’t cause two words to get squished together. You can always remove any extra spaces using <code>str_squish()</code> at the end.</p>
 </div>
-<div id="example-4-using-regular-expressions-to-prepare-text-for-analysis" class="section level2">
-<h2>Example 4: Using regular expressions to prepare text for analysis</h2>
+<div id="example-4-using-regular-expressions-to-prepare-text-for-analysis" class="section level2" number="5.4">
+<h2 number="5.4"><span class="header-section-number">5.4</span> Example 4: Using regular expressions to prepare text for analysis</h2>
 <p>We can use <code>stringr</code> and regular expressions to prepare text for quantitative text analysis. We’ll use a paragraph from the judgment for case <code>C‑370/12</code> as an example. You could use the same code to clean an entire text corpus. You would just pass in a column from a <code>tibble</code> containing your text instead of the <code>text</code> object in the example.</p>
 <p>In this example, we’ll convert the text to lower case, remove punctuation, remove numbers, remove a custom list of stop words (short words that have grammatical meaning, but not substantive meaning), and remove extra white space.</p>
 <p>To remove the stop words, we’ll start with a string vector that contains the words. We’ll use <code>str_c()</code> with <code>collapse = "|</code> to collapse this vector of words into a single string and to add the <code>|</code> operator between each word. Then, we’ll use <code>str_c</code> to wrap this regular expression in <code>()</code> and add <code>\\b</code> at the start and end. This produces the regular expression like <code>\\b(the|a|an|and)\\b</code>, which matches all of the stop words in the paragraph. This is a nice example of using code to generate more complicated code. Adding the <code>\\b</code> at each end makes sure we don’t match these stop words when they occur in the middle of a word. We only want to match those sequences of letters when they form a stand-alone word.</p>
@@ -511,8 +511,8 @@ clean_text</code></pre>
 <p>The only other thing we might want to do to this text before we do some text analysis is lemmatization, which involves removing grammatical endings, taking words down to their grammatical root. We could use the <code>quanteda</code> package for that. We could also clean the text using <code>quanteda</code> functions instead of using <code>stringr</code> and regular expressions.</p>
 </div>
 </div>
-<div id="final-thoughts" class="section level1">
-<h1>Final thoughts</h1>
+<div id="final-thoughts" class="section level1" number="6">
+<h1 number="6"><span class="header-section-number">6</span> Final thoughts</h1>
 <p>There are usually many different regular expressions that you could write to match the pattern you’re interested in. Some might be better than others because they’re better at avoiding false positives (accidentally matching text you’re not interested) or false negatives (accidentally not matching text that you’re interested in). Writing a good regular expression is as much an art as a science. The better you know your text data, and any formatting inconsistencies or errors it contains, the better you can tailor the flexibility of your regular expressions to minimize false positive and false negatives.</p>
 <p><strong>Always remember:</strong> You need to test our your regular expressions to make sure they’re catching all occurrences of the pattern. There could be some formatting inconsistencies in your text data, and you need to make sure your regular expression is flexible enough to handle them appropriately. Writing regular expressions is an iterative process. You have to try things out and make sure you get what you want. Always validate your data by checking a random sample and by checking any observations that you suspect might be particularly complicated.</p>
 <p>With a little practice, regular expressions give you full control over manipulating text data. There’s <em>almost always</em> a regular expression that will allow you to detect, extract, replace, or remove that text you’re interested in. But sometimes it can take some creativity to figure out.</p>
